@@ -1,6 +1,6 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5fbabf134d324fd48db7778bfa3e744a)](https://www.codacy.com/app/gpg/RestaurantVoteSystem?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pro100boy/RestaurantVoteSystem&amp;utm_campaign=Badge_Grade)
-[![Dependency Status](https://dependencyci.com/github/pro100boy/RestaurantVoteSystem/badge)](https://dependencyci.com/github/pro100boy/RestaurantVoteSystem)
-[![Build Status](https://travis-ci.org/pro100boy/RestaurantVoteSystem.svg?branch=new_vote_rest)](https://travis-ci.org/pro100boy/RestaurantVoteSystem)
+[![Dependency Status](https://dependencyci.com/github/pro100boy/RestaurantVote/badge)](https://dependencyci.com/github/pro100boy/RestaurantVote)
+[![Build Status](https://travis-ci.org/pro100boy/RestaurantVote.svg?branch=master)](https://travis-ci.org/pro100boy/RestaurantVote)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/da3ee8bd41da4fa1946ddac63a50088b)](https://www.codacy.com/app/gpg/RestaurantVote?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pro100boy/RestaurantVote&amp;utm_campaign=Badge_Grade)
 ## Restaurant Vote System (application deployed in application context `vote`). ##
 
 ### *Get results of vote for the specified date. If date isn't presented, then date = today*
