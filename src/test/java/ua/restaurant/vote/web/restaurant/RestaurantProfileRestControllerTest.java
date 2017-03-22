@@ -1,14 +1,12 @@
 package ua.restaurant.vote.web.restaurant;
 
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import ua.restaurant.vote.MenuTestData;
 import ua.restaurant.vote.TestUtil;
-import ua.restaurant.vote.model.Restaurant;
 import ua.restaurant.vote.to.RestaurantTo;
 import ua.restaurant.vote.web.AbstractControllerTest;
 import ua.restaurant.vote.web.json.JsonUtil;
@@ -20,11 +18,8 @@ import java.util.stream.Collectors;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static ua.restaurant.vote.RestaurantTestData.*;
-import static ua.restaurant.vote.RestaurantTestData.RESTAURANT3;
 import static ua.restaurant.vote.TestUtil.userHttpBasic;
 import static ua.restaurant.vote.UserTestData.ADMIN;
 import static ua.restaurant.vote.UserTestData.USER1;
@@ -32,7 +27,6 @@ import static ua.restaurant.vote.UserTestData.USER1;
 /**
  * Created by Galushkin Pavel on 11.03.2017.
  */
-
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RestaurantProfileRestControllerTest extends AbstractControllerTest {

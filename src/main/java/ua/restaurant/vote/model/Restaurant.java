@@ -1,5 +1,6 @@
 package ua.restaurant.vote.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -34,12 +35,14 @@ public class Restaurant extends NamedEntity {
     @SafeHtml
     private String description;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("vote_date DESC")
     @JsonManagedReference(value="restaurant-votes")
     private Set<Vote> votes;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("menu_date DESC")
