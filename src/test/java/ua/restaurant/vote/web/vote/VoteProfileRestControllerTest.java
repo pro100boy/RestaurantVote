@@ -114,7 +114,7 @@ public class VoteProfileRestControllerTest extends AbstractControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(USER1))
                 .content(JsonUtil.writeValue(RESTAURANT2_ID)))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
 
         DateTimeUtil.setDeadlineVoteTime(DateTimeUtil.DEFAULT_VOTE_DEADLINE_TIME);
     }

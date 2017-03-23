@@ -3,6 +3,7 @@ package ua.restaurant.vote.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -13,7 +14,6 @@ import ua.restaurant.vote.repository.VoteRepository;
 import ua.restaurant.vote.to.ResultTo;
 import ua.restaurant.vote.util.DateTimeUtil;
 import ua.restaurant.vote.util.exception.NotFoundException;
-import ua.restaurant.vote.util.exception.VoteException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -38,7 +38,7 @@ public class VoteServiceImpl implements VoteService {
 
     public void checkModificationAllowed() {
         if (LocalTime.now().isAfter(DateTimeUtil.getDeadlineVoteTime())) {
-            throw new VoteException("It's too late for change opinion.");
+            throw new DataIntegrityViolationException("vote_modification_restriction");
         }
     }
 

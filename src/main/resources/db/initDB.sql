@@ -53,7 +53,6 @@ CREATE TABLE menus (
 );
 
 /*<create index statement> ::= CREATE INDEX [ IF NOT EXISTS ] <index name> ON <table name> <left paren> {<column name> [ASC | DESC]}, ... <right paren>*/
-CREATE UNIQUE INDEX users_unique_email_idx ON USERS (email);
 CREATE INDEX fki_menus_rest ON menus (rest_id);
 CREATE INDEX fki_votes_rest ON votes (rest_id);
 CREATE INDEX fki_votes_user ON votes (user_id);

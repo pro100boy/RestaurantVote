@@ -5,10 +5,10 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import ua.restaurant.vote.model.Vote;
 import ua.restaurant.vote.util.DateTimeUtil;
 import ua.restaurant.vote.util.exception.NotFoundException;
-import ua.restaurant.vote.util.exception.VoteException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -88,7 +88,7 @@ public abstract class AbstractVoteServiceTest extends AbstractServiceTest {
         updateTest(ADMIN_ID, 0, true);
     }
 
-    @Test(expected = VoteException.class)
+    @Test(expected = DataIntegrityViolationException.class)
     public void testUpdateAfterDeadline() throws Exception {
         updateTest(USER2_ID, RESTAURANT1_ID, false);
     }

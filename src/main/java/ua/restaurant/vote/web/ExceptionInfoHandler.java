@@ -40,7 +40,9 @@ public class ExceptionInfoHandler {
     private static Map<String, String> constraintCodeMap = new HashMap<String, String>() {
         {
             put("users_unique_email_idx", "exception.users.duplicate_email");
-            put("meals_unique_user_datetime_idx", "exception.meals.duplicate_datetime");
+            put("menu_unique_idx", "exception.menu.duplicate_in_restaurant");
+            put("user_date_unique_idx", "exception.votes.createDuplicateVote");
+            put("vote_modification_restriction", "exception.modificationRestriction");
         }
     };
 
