@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/pro100boy/RestaurantVote.svg?branch=master)](https://travis-ci.org/pro100boy/RestaurantVote)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/da3ee8bd41da4fa1946ddac63a50088b)](https://www.codacy.com/app/gpg/RestaurantVote?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pro100boy/RestaurantVote&amp;utm_campaign=Badge_Grade)
 ## Restaurant Vote System (application deployed in application context `vote`). ##
-REST API using Hibernate/Spring/SpringMVC **without frontend**.
+REST API using Hibernate/Spring/SpringMVC **without frontend**. The database HSQL is used.
 
 Voting system for deciding where to have lunch.
 
@@ -16,6 +16,10 @@ Voting system for deciding where to have lunch.
     - If it is after 11:00 then it is too late, vote can't be changed
 
 Each restaurant provides new menu each day.
+
+----------
+Goal cURL commands:
+
 ### *Get results of vote for the specified date. If date isn't presented, then date = today*
 `curl -s http://localhost:8080/vote/rest/profile/votes/result?date= --user user@ya.ru:password`
 
@@ -23,6 +27,7 @@ Each restaurant provides new menu each day.
 `curl -s http://localhost:8080/vote/rest/profile/restaurants/polls?date=2017-02-20 --user user@ya.ru:password`
 
 ----------
+Some other cURL commands:
 
 #### Test AdminRestController
 
