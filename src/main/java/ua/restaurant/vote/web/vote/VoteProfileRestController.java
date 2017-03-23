@@ -55,7 +55,7 @@ public class VoteProfileRestController extends AbstractVoteController {
 
     // update vote
     @Override
-    @PutMapping(value = "/restaurants/{restaurantId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/restaurants/{restaurantId}")
     public void update(@PathVariable("restaurantId") int restaurantId) {
         super.update(restaurantId);
     }
