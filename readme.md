@@ -2,7 +2,20 @@
 [![Build Status](https://travis-ci.org/pro100boy/RestaurantVote.svg?branch=master)](https://travis-ci.org/pro100boy/RestaurantVote)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/da3ee8bd41da4fa1946ddac63a50088b)](https://www.codacy.com/app/gpg/RestaurantVote?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pro100boy/RestaurantVote&amp;utm_campaign=Badge_Grade)
 ## Restaurant Vote System (application deployed in application context `vote`). ##
+REST API using Hibernate/Spring/SpringMVC **without frontend**.
 
+Voting system for deciding where to have lunch.
+
+ * 2 types of users: admin and regular users
+ * Admin can input a restaurant and it's lunch menu of the day (2-5 items usually, just a dish name and price)
+ * Menu changes each day (admins do the updates)
+ * Users can vote on which restaurant they want to have lunch at
+ * Only one vote counted per user
+ * If user votes again the same day:
+    - If it is before 11:00 we asume that he changed his mind.
+    - If it is after 11:00 then it is too late, vote can't be changed
+
+Each restaurant provides new menu each day.
 ### *Get results of vote for the specified date. If date isn't presented, then date = today*
 `curl -s http://localhost:8080/vote/rest/profile/votes/result?date= --user user@ya.ru:password`
 

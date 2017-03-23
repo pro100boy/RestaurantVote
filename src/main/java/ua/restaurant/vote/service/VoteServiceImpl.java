@@ -38,7 +38,7 @@ public class VoteServiceImpl implements VoteService {
 
     public void checkModificationAllowed() {
         if (LocalTime.now().isAfter(DateTimeUtil.getDeadlineVoteTime())) {
-            throw new DataIntegrityViolationException("vote_modification_restriction");
+            throw new DataIntegrityViolationException("VOTE_MODIFICATION_RESTRICTION");
         }
     }
 
