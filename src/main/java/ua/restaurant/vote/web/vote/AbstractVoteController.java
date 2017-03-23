@@ -10,10 +10,8 @@ import ua.restaurant.vote.to.ResultTo;
 import ua.restaurant.vote.to.VoteToJSONView;
 import ua.restaurant.vote.util.DateTimeUtil;
 import ua.restaurant.vote.util.VoteUtil;
-import ua.restaurant.vote.util.exception.VoteException;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 /**
