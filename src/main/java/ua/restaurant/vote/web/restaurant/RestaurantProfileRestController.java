@@ -1,5 +1,6 @@
 package ua.restaurant.vote.web.restaurant;
 
+import org.springframework.hateoas.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ua.restaurant.vote.model.Restaurant;
@@ -13,13 +14,13 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = RestaurantProfileRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class RestaurantProfileRestController extends AbstractRestaurantController{
+public class RestaurantProfileRestController extends AbstractRestaurantController {
     static final String REST_URL = "/rest/profile/restaurants";
 
     // get list with restaurants and his menus
     @Override
     @GetMapping(value = "/polls")
-    public List<RestaurantTo> findAllForDate(@RequestParam(value = "date", required = false) LocalDate date) {
+    public List<Resource<RestaurantTo>> findAllForDate(@RequestParam(value = "date", required = false) LocalDate date) {
         return super.findAllForDate(date);
     }
 
