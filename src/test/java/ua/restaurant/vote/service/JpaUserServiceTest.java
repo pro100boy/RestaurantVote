@@ -1,6 +1,5 @@
 package ua.restaurant.vote.service;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ua.restaurant.vote.VoteTestData;
@@ -10,7 +9,6 @@ import ua.restaurant.vote.repository.JpaUtil;
 import ua.restaurant.vote.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
-
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
@@ -23,13 +21,6 @@ import static ua.restaurant.vote.UserTestData.USER1_ID;
 public class JpaUserServiceTest extends AbstractUserServiceTest {
     @Autowired
     private JpaUtil jpaUtil;
-
-    @Before
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-        jpaUtil.clear2ndLevelHibernateCache();
-    }
 
     @Test
     public void testValidation() throws Exception {

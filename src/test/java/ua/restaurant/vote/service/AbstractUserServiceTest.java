@@ -1,7 +1,6 @@
 package ua.restaurant.vote.service;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -22,11 +21,6 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
 
     @Autowired
     protected UserService service;
-
-    @Before
-    public void setUp() throws Exception {
-        service.evictCache();
-    }
 
     @Test
     public void testSave() throws Exception {

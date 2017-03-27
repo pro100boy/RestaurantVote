@@ -1,11 +1,13 @@
 package ua.restaurant.vote.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import ua.restaurant.vote.model.Menu;
-import ua.restaurant.vote.repository.MenuRepository;
+import ua.restaurant.vote.model.Dish;
+import ua.restaurant.vote.repository.DishRepository;
 import ua.restaurant.vote.repository.RestaurantRepository;
 
 import java.time.LocalDate;
@@ -17,16 +19,17 @@ import static ua.restaurant.vote.util.ValidationUtil.checkNotFoundWithId;
  * Created by Galushkin Pavel on 14.03.2017.
  */
 @Service("menuService")
-public class MenuServiceImpl implements MenuService {
+public class DishServiceImpl implements DishService {
     @Autowired
-    MenuRepository menuRepository;
+    DishRepository dishRepository;
 
     @Autowired
     RestaurantRepository restaurantRepository;
-    
+
+    @CacheEvict(value = "dishes", allEntries = true)
     @Override
     @Transactional
-    public Menu save(Menu menu, int restaurantId) {
+    public Dish save(Dish menu, int restaurantId) {
         if (!menu.isNew() && get(menu.getId(), restaurantId) == null) {
             menu = null;
         }
@@ -34,35 +37,42 @@ public class MenuServiceImpl implements MenuService {
             menu.setRestaurant(restaurantRepository.getOne(restaurantId));
         }
         Assert.notNull(menu, "menu must not be null");
-        return menuRepository.save(menu);
+        return dishRepository.save(menu);
     }
 
+    @CacheEvict(value = "dishes", allEntries = true)
     @Override
     @Transactional
-    public Menu update(Menu menu, int restaurantId) {
+    public Dish update(Dish menu, int restaurantId) {
         return checkNotFoundWithId(save(menu, restaurantId), menu.getId());
     }
 
+    @CacheEvict(value = "dishes", allEntries = true)
     @Override
     public void delete(int id, int restaurantId) {
-        checkNotFoundWithId(menuRepository.delete(id, restaurantId) != 0, id);
+        checkNotFoundWithId(dishRepository.delete(id, restaurantId) != 0, id);
     }
 
     @Override
-    public Menu get(int id, int restaurantId) {
-        Menu menu = menuRepository.findOne(id);
+    public Dish get(int id, int restaurantId) {
+        Dish menu = dishRepository.findOne(id);
         return checkNotFoundWithId(menu != null && menu.getRestaurant().getId() == restaurantId ? menu : null, id);
     }
 
+    @Cacheable("dishes")
     @Override
-    public List<Menu> getAllWithRestaurant(int restaurantId) {
-        return menuRepository.getAllWithRestaurant(restaurantId);
+    public List<Dish> getAllByRestaurant(int restaurantId) {
+        return dishRepository.getAllWithRestaurant(restaurantId);
     }
-
+// TODO убрать
     @Override
-    public List<Menu> getAllWithRestaurant(int restaurantId, LocalDate startDate, LocalDate endDate) {
+    public List<Dish> getAllByRestaurant(int restaurantId, LocalDate startDate, LocalDate endDate) {
         Assert.notNull(startDate, "startDate must not be null");
         Assert.notNull(endDate, "endDate  must not be null");
-        return menuRepository.getAllBetweenDates(restaurantId, startDate, endDate);
+        return dishRepository.getAllBetweenDates(restaurantId, startDate, endDate);
     }
+
+    @CacheEvict(value = "dishes", allEntries = true)
+    @Override
+    public void evictCache() {}
 }

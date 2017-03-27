@@ -1,11 +1,11 @@
-package ua.restaurant.vote.web.menu;
+package ua.restaurant.vote.web.dish;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ua.restaurant.vote.model.Menu;
+import ua.restaurant.vote.model.Dish;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,12 +15,12 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping(value = MenuProfileRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class MenuProfileRestController extends AbstractMenuController {
+@RequestMapping(value = DishProfileRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class DishProfileRestController extends AbstractDishController {
     static final String REST_URL = "/rest/profile/restaurants/{restaurantId}/menus";
 
     @GetMapping
-    public List<Menu> getToday(@PathVariable("restaurantId") int restaurantId) {
+    public List<Dish> getToday(@PathVariable("restaurantId") int restaurantId) {
         return super.getBetween(restaurantId, LocalDate.now(), LocalDate.now());
     }
 }

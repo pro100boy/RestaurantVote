@@ -1,4 +1,4 @@
-package ua.restaurant.vote.web.menu;
+package ua.restaurant.vote.web.dish;
 
 import org.junit.Test;
 import org.springframework.http.MediaType;
@@ -8,14 +8,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ua.restaurant.vote.MenuTestData.*;
+import static ua.restaurant.vote.DishTestData.*;
 import static ua.restaurant.vote.RestaurantTestData.RESTAURANT2_ID;
 import static ua.restaurant.vote.TestUtil.userHttpBasic;
 import static ua.restaurant.vote.UserTestData.USER1;
 
 
-public class MenuProfileRestControllerTest extends AbstractControllerTest {
-    private static final String REST_URL = MenuProfileRestController.REST_URL + '/';
+public class DishProfileRestControllerTest extends AbstractControllerTest {
+    private static final String REST_URL = DishProfileRestController.REST_URL + '/';
 
     @Test
     public void testGetToday() throws Exception {
@@ -24,6 +24,6 @@ public class MenuProfileRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentListMatcher(MENU7, MENU8));
+                .andExpect(MATCHER.contentListMatcher(DISH7, DISH8));
     }
 }

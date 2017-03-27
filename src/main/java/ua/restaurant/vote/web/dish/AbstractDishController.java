@@ -1,10 +1,10 @@
-package ua.restaurant.vote.web.menu;
+package ua.restaurant.vote.web.dish;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import ua.restaurant.vote.model.Menu;
-import ua.restaurant.vote.service.MenuService;
+import ua.restaurant.vote.model.Dish;
+import ua.restaurant.vote.service.DishService;
 import ua.restaurant.vote.util.DateTimeUtil;
 
 import java.time.LocalDate;
@@ -16,19 +16,19 @@ import static ua.restaurant.vote.util.ValidationUtil.checkNew;
 /**
  * Created by Galushkin Pavel on 09.03.2017.
  */
-public abstract class AbstractMenuController {
+public abstract class AbstractDishController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private MenuService service;
+    private DishService service;
 
-    public Menu create(Menu menu, int restaurantId) {
+    public Dish create(Dish menu, int restaurantId) {
         checkNew(menu);
         log.info("create {} for Restaurant {}", menu, restaurantId);
         return service.save(menu, restaurantId);
     }
 
-    public void update(Menu menu, int id, int restaurantId) {
+    public void update(Dish menu, int id, int restaurantId) {
         checkIdConsistent(menu, id);
         log.info("update {} for Restaurant {}", menu, restaurantId);
         service.update(menu, restaurantId);
@@ -39,20 +39,20 @@ public abstract class AbstractMenuController {
         service.delete(id, restaurantId);
     }
 
-    public Menu get(int id, int restaurantId) {
+    public Dish get(int id, int restaurantId) {
         log.info("get menu {} for Restaurant {}", id, restaurantId);
         return service.get(id, restaurantId);
     }
 
-    public List<Menu> getAll(int restaurantId) {
+    public List<Dish> getAll(int restaurantId) {
         log.info("getAll for Restaurant {}", restaurantId);
-        return service.getAllWithRestaurant(restaurantId);
+        return service.getAllByRestaurant(restaurantId);
     }
 
-    public List<Menu> getBetween(int restaurantId, LocalDate startDate, LocalDate endDate) {
+    public List<Dish> getBetween(int restaurantId, LocalDate startDate, LocalDate endDate) {
         log.info("getBetween dates {} - {} for Restaurant {}", startDate, endDate, restaurantId);
 
-        return service.getAllWithRestaurant(
+        return service.getAllByRestaurant(
                 restaurantId,
                 startDate != null ? startDate : DateTimeUtil.MIN_DATE,
                 endDate != null ? endDate : DateTimeUtil.MAX_DATE

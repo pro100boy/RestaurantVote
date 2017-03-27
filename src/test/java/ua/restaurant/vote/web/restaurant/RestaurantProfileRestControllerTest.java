@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
-import ua.restaurant.vote.MenuTestData;
+import ua.restaurant.vote.DishTestData;
 import ua.restaurant.vote.TestUtil;
 import ua.restaurant.vote.to.RestaurantTo;
 import ua.restaurant.vote.web.AbstractControllerTest;
@@ -77,8 +77,8 @@ public class RestaurantProfileRestControllerTest extends AbstractControllerTest 
                 .andExpect(jsonPath("$.*", hasSize(3)))
                 .andDo(print());
         List<RestaurantTo> returned = JsonUtil.readValues(TestUtil.getContent(action), RestaurantTo.class);
-        MenuTestData.MATCHER.assertCollectionEquals(
-                MenuTestData.MENUS,
+        DishTestData.MATCHER.assertCollectionEquals(
+                DishTestData.DISHES,
                 returned.stream().flatMap(m -> m.getMenus().stream()).collect(Collectors.toList())
         );
     }
@@ -92,8 +92,8 @@ public class RestaurantProfileRestControllerTest extends AbstractControllerTest 
                 .andDo(print());
 
         List<RestaurantTo> returned = JsonUtil.readValues(TestUtil.getContent(action), RestaurantTo.class);
-        MenuTestData.MATCHER.assertCollectionEquals(
-                Arrays.asList(MenuTestData.MENU7,MenuTestData.MENU8),
+        DishTestData.MATCHER.assertCollectionEquals(
+                Arrays.asList(DishTestData.DISH7, DishTestData.DISH8),
                 returned.stream().flatMap(m -> m.getMenus().stream()).collect(Collectors.toList()));
     }
 }

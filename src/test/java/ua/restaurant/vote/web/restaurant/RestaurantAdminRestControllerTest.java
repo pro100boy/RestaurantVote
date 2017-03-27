@@ -6,7 +6,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
-import ua.restaurant.vote.MenuTestData;
+import ua.restaurant.vote.DishTestData;
 import ua.restaurant.vote.VoteTestData;
 import ua.restaurant.vote.model.Restaurant;
 import ua.restaurant.vote.web.AbstractControllerTest;
@@ -122,7 +122,7 @@ public class RestaurantAdminRestControllerTest extends AbstractControllerTest {
 
         Restaurant returned = MATCHER.fromJsonAction(action);
         VoteTestData.MATCHER.assertCollectionEquals(Arrays.asList(VoteTestData.VOTE5, VoteTestData.VOTE6, VoteTestData.VOTE1), returned.getVotes());
-        MenuTestData.MATCHER.assertCollectionEquals(Arrays.asList(MenuTestData.MENU1, MenuTestData.MENU4), returned.getMenus());
+        DishTestData.MATCHER.assertCollectionEquals(Arrays.asList(DishTestData.DISH1, DishTestData.DISH4), returned.getDishes());
     }
 
     @Test
@@ -135,6 +135,6 @@ public class RestaurantAdminRestControllerTest extends AbstractControllerTest {
 
         Restaurant returned = MATCHER.fromJsonAction(action);
         VoteTestData.MATCHER.assertCollectionEquals(Arrays.asList(VoteTestData.VOTE5, VoteTestData.VOTE6, VoteTestData.VOTE8, VoteTestData.VOTE1), returned.getVotes());
-        MenuTestData.MATCHER.assertCollectionEquals(Arrays.asList(MenuTestData.MENU1, MenuTestData.MENU4), returned.getMenus());
+        DishTestData.MATCHER.assertCollectionEquals(Arrays.asList(DishTestData.DISH1, DishTestData.DISH4), returned.getDishes());
     }
 }

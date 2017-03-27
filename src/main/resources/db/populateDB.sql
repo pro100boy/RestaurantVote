@@ -1,6 +1,6 @@
 DELETE FROM user_roles;
 DELETE FROM votes;
-DELETE FROM menus;
+DELETE FROM dishes;
 DELETE FROM users;
 DELETE FROM restaurants;
 
@@ -24,17 +24,17 @@ INSERT INTO restaurants (name, description) VALUES
   ('Restaurant 2', 'Description of restaurant 2'),
   ('Restaurant 3', 'Description of restaurant 3');
 
-INSERT INTO menus (rest_id, menu_date, name, price) VALUES
-  (100004, '2017-01-30', 'Dish 1', 12.5),
-  (100005, '2017-01-30', 'Dish 2', 13.5),
-  (100006, '2017-01-30', 'Dish 3', 14.5),
-  (100004, '2017-02-20', 'Dish 4', 120.5),
-  (100005, '2017-02-20', 'Dish 5', 130.5),
-  (100006, '2017-02-20', 'Dish 6', 140.5),
-  (100005, now(), 'Dish 7', 139.99),
-  (100005, now(), 'Dish 8', 140.99);
+INSERT INTO dishes (rest_id, date, name, price) VALUES
+  (100004, '2017-01-30', 'Dish 1', 1250),
+  (100005, '2017-01-30', 'Dish 2', 1350),
+  (100006, '2017-01-30', 'Dish 3', 1450),
+  (100004, '2017-02-20', 'Dish 4', 12050),
+  (100005, '2017-02-20', 'Dish 5', 13050),
+  (100006, '2017-02-20', 'Dish 6', 14050),
+  (100005, now(), 'Dish 7', 13999),
+  (100005, now(), 'Dish 8', 14099);
 
-INSERT INTO votes (user_id, rest_id, vote_date) VALUES
+INSERT INTO votes (user_id, rest_id, date) VALUES
   (100000, 100004, '2017-01-30'),
   (100001, 100005, '2017-01-30'),
   (100002, 100006, '2017-01-30'),

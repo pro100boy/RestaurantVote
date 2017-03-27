@@ -1,6 +1,6 @@
 package ua.restaurant.vote.to;
 
-import ua.restaurant.vote.model.Menu;
+import ua.restaurant.vote.model.Dish;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -11,12 +11,12 @@ import java.util.Set;
 public class RestaurantTo extends BaseTo implements Serializable {
     private static final long serialVersionUID = 1L;
     private String name;
-    private Set<Menu> menus;
+    private Set<Dish> menus;
 
     public RestaurantTo() {
     }
 
-    public RestaurantTo(Integer id, String name, Set<Menu> menus) {
+    public RestaurantTo(Integer id, String name, Set<Dish> menus) {
         super(id);
         this.name = name;
         this.menus = menus;
@@ -30,11 +30,11 @@ public class RestaurantTo extends BaseTo implements Serializable {
         this.name = name;
     }
 
-    public Set<Menu> getMenus() {
+    public Set<Dish> getMenus() {
         return menus;
     }
 
-    public void setMenus(Set<Menu> menus) {
+    public void setMenus(Set<Dish> menus) {
         this.menus = menus;
     }
 

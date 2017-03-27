@@ -1,10 +1,10 @@
-package ua.restaurant.vote.web.menu;
+package ua.restaurant.vote.web.dish;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ua.restaurant.vote.model.Menu;
+import ua.restaurant.vote.model.Dish;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -15,14 +15,14 @@ import java.util.List;
  * Created by Galushkin Pavel on 14.03.2017.
  */
 @RestController
-@RequestMapping(value = MenuAdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class MenuAdminRestController extends AbstractMenuController {
+@RequestMapping(value = DishAdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class DishAdminRestController extends AbstractDishController {
     static final String REST_URL = "/rest/admin/restaurants/{restaurantId}/menus";
 
     // returns concrete menu of the restaurant
     @Override
     @GetMapping("/{id}")
-    public Menu get(@PathVariable("id") int id, @PathVariable("restaurantId") int restaurantId) {
+    public Dish get(@PathVariable("id") int id, @PathVariable("restaurantId") int restaurantId) {
         return super.get(id, restaurantId);
     }
 
@@ -34,20 +34,20 @@ public class MenuAdminRestController extends AbstractMenuController {
 
     @Override
     @GetMapping
-    public List<Menu> getAll(@PathVariable("restaurantId") int restaurantId) {
+    public List<Dish> getAll(@PathVariable("restaurantId") int restaurantId) {
         return super.getAll(restaurantId);
     }
 
     @Override
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@Valid @RequestBody Menu menu, @PathVariable("id") int id,
+    public void update(@Valid @RequestBody Dish menu, @PathVariable("id") int id,
                        @PathVariable("restaurantId") int restaurantId) {
         super.update(menu, id, restaurantId);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Menu> createWithLocation(@Valid @RequestBody Menu menu, @PathVariable("restaurantId") int restaurantId) {
-        Menu created = super.create(menu, restaurantId);
+    public ResponseEntity<Dish> createWithLocation(@Valid @RequestBody Dish menu, @PathVariable("restaurantId") int restaurantId) {
+        Dish created = super.create(menu, restaurantId);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
@@ -57,7 +57,7 @@ public class MenuAdminRestController extends AbstractMenuController {
     }
 
     @GetMapping(value = "/between")
-    public List<Menu> getBetween(@PathVariable("restaurantId") int restaurantId,
+    public List<Dish> getBetween(@PathVariable("restaurantId") int restaurantId,
                                  @RequestParam(value = "startDate", required = false) LocalDate startDate,
                                  @RequestParam(value = "endDate", required = false) LocalDate endDate) {
         return super.getBetween(restaurantId, startDate, endDate);

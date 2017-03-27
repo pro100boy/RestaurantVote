@@ -15,31 +15,31 @@ import java.time.LocalDate;
  * 04.03.2017
  */
 @Entity
-@Table(name = "menus", uniqueConstraints = {@UniqueConstraint(columnNames = {"rest_id", "menu_date", "name", "price"}, name = "menu_unique_idx")})
-public class Menu extends NamedEntity {
-    @Column(name = "menu_date", nullable = false)
+@Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"rest_id", "date", "name", "price"}, name = "dishes_unique_idx")})
+public class Dish extends NamedEntity {
+    @Column(name = "date", nullable = false)
     @NotNull
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate date;
 
-    @Column(name = "price", nullable = false, columnDefinition = "real default 0")
+    @Column(name = "price", nullable = false, columnDefinition = "int default 0")
     @NotNull
-    private Float price;
+    private Integer price;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rest_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonBackReference(value="restaurant-menus")
+    @JsonBackReference(value="restaurant-dishes")
     private Restaurant restaurant;
 
-    public Menu() {
+    public Dish() {
     }
 
-    public Menu(LocalDate date, String name, Float price) {
+    public Dish(LocalDate date, String name, Integer price) {
         this(null, date, name, price);
     }
 
-    public Menu(Integer id, LocalDate date, String name, Float price) {
+    public Dish(Integer id, LocalDate date, String name, Integer price) {
         super(id, name);
         this.date = date;
         this.price = price;
@@ -53,11 +53,11 @@ public class Menu extends NamedEntity {
         this.date = date;
     }
 
-    public Float getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
@@ -75,7 +75,7 @@ public class Menu extends NamedEntity {
                 "id=" + getId() +
                 ", date=" + date +
                 ", dish=" + name +
-                ", price=" + Float.toString(price) +
+                ", price=" + Integer.toString(price) +
                 //", restaurant=" + restaurant +
                 '}';
     }

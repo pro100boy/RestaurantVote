@@ -1,6 +1,5 @@
 package ua.restaurant.vote.service;
 
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -28,11 +27,6 @@ public abstract class AbstractVoteServiceTest extends AbstractServiceTest {
 
     @Autowired
     VoteService voteService;
-
-    @Before
-    public void setUp() throws Exception {
-        voteService.evictCache();
-    }
 
     @Test
     public void testSave() {

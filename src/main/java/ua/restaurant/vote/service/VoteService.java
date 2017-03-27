@@ -34,8 +34,4 @@ public interface VoteService {
     Vote update(int userId, int restaurantId) throws NotFoundException;
 
     List<ResultTo> getResultSet(LocalDate date);
-
-    void evictCache();
-
-    List<Vote> getAll();
 }

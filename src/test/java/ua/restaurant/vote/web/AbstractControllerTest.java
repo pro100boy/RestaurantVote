@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import ua.restaurant.vote.repository.JpaUtil;
-import ua.restaurant.vote.service.MenuService;
+import ua.restaurant.vote.service.DishService;
 import ua.restaurant.vote.service.RestaurantService;
 import ua.restaurant.vote.service.UserService;
 import ua.restaurant.vote.service.VoteService;
@@ -57,7 +57,7 @@ abstract public class AbstractControllerTest {
     protected VoteService voteService;
 
     @Autowired
-    protected MenuService menuService;
+    protected DishService dishService;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -73,9 +73,8 @@ abstract public class AbstractControllerTest {
 
     @Before
     public void setUp() {
-        userService.evictCache();
         restaurantService.evictCache();
-        voteService.evictCache();
+        dishService.evictCache();
         jpaUtil.clear2ndLevelHibernateCache();
     }
 }

@@ -1,8 +1,6 @@
 package ua.restaurant.vote.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -30,14 +28,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private UserRepository repository;
 
-    @CacheEvict(value = "users", allEntries = true)
     @Override
     public User save(User user) {
         Assert.notNull(user, "user must not be null");
         return repository.save(prepareToSave(user));
     }
 
-    @CacheEvict(value = "users", allEntries = true)
     @Override
     public void delete(int id) {
         checkNotFoundWithId(repository.delete(id) != 0, id);
@@ -54,20 +50,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return checkNotFound(repository.getByEmail(email), "email=" + email);
     }
 
-    @Cacheable("users")
     @Override
     public List<User> getAll() {
         return repository.findAllByOrderByNameAscEmailAsc();
     }
 
-    @CacheEvict(value = "users", allEntries = true)
     @Override
     public void update(User user) {
         Assert.notNull(user, "user must not be null");
         repository.save(prepareToSave(user));
     }
 
-    @CacheEvict(value = "users", allEntries = true)
     @Transactional
     @Override
     public void update(UserTo userTo) {
@@ -75,12 +68,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         repository.save(prepareToSave(user));
     }
 
-    @CacheEvict(value = "users", allEntries = true)
-    @Override
-    public void evictCache() {
-    }
-
-    @CacheEvict(value = "users", allEntries = true)
     @Override
     @Transactional
     public void enable(int id, boolean enabled) {

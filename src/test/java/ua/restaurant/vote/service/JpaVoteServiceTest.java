@@ -1,6 +1,5 @@
 package ua.restaurant.vote.service;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ua.restaurant.vote.RestaurantTestData;
@@ -29,13 +28,6 @@ import static ua.restaurant.vote.VoteTestData.*;
 public class JpaVoteServiceTest extends AbstractVoteServiceTest {
     @Autowired
     private JpaUtil jpaUtil;
-
-    @Before
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-        jpaUtil.clear2ndLevelHibernateCache();
-    }
 
     @Test
     public void testGetWithUserForPeriod() throws Exception {

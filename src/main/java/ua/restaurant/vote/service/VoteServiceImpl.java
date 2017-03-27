@@ -1,8 +1,6 @@
 package ua.restaurant.vote.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,7 +43,6 @@ public class VoteServiceImpl implements VoteService {
     // because select and insert operations must be in one transaction
     @Transactional
     @Override
-    @CacheEvict(value = "votes", allEntries = true)
     public Vote save(int userId, int restaurantId) {
         Vote vote = new Vote(LocalDate.now());
         vote.setRestaurant(restaurantRepository.getOne(restaurantId));
@@ -55,7 +52,6 @@ public class VoteServiceImpl implements VoteService {
 
     @Override
     @Transactional
-    @CacheEvict(value = "votes", allEntries = true)
     public Vote update(int userId, int restaurantId) throws NotFoundException {
         checkModificationAllowed();
         Vote vote = voteRepository.getVote(userId, LocalDate.now());
@@ -67,7 +63,6 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
-    @CacheEvict(value = "votes", allEntries = true)
     public void delete(int id, int userId) throws NotFoundException {
         checkNotFoundWithId(voteRepository.delete(id, userId) != 0, id);
     }
@@ -79,7 +74,6 @@ public class VoteServiceImpl implements VoteService {
         return vote;
     }
 
-    @Cacheable("votes")
     @Override
     public List<Vote> getAll(int userId) {
         return voteRepository.getAll(userId);
@@ -91,7 +85,6 @@ public class VoteServiceImpl implements VoteService {
         return checkNotFoundWithId((vote != null && vote.getUser().getId() == userId ? vote : null), id);
     }
 
-    @Cacheable("votes")
     @Override
     public List<Vote> getWithUserForPeriod(int userId, LocalDate startDate, LocalDate endDate) {
         Assert.notNull(startDate, "startDate must not be null");
@@ -99,7 +92,6 @@ public class VoteServiceImpl implements VoteService {
         return voteRepository.getWithUserForPeriod(userId, startDate, endDate);
     }
 
-    @Cacheable("votes")
     @Override
     public List<Vote> getWithRestaurantForPeriod(int restaurantId, LocalDate startDate, LocalDate endDate) {
         Assert.notNull(startDate, "startDate must not be null");
@@ -111,15 +103,5 @@ public class VoteServiceImpl implements VoteService {
     public List<ResultTo> getResultSet(LocalDate date) {
         Assert.notNull(date, "date must not be null");
         return voteRepository.getResultSet(date);
-    }
-
-    @CacheEvict(value = "votes", allEntries = true)
-    @Override
-    public void evictCache() {
-    }
-
-    @Override
-    public List<Vote> getAll() {
-        return voteRepository.getAll();
     }
 }

@@ -14,7 +14,7 @@ public class RestaurantUtil {
     }
 
     public static RestaurantTo asTo(Restaurant restaurant) {
-        return new RestaurantTo(restaurant.getId(), restaurant.getName(), restaurant.getMenus());
+        return new RestaurantTo(restaurant.getId(), restaurant.getName(), restaurant.getDishes());
     }
 
     public static List<RestaurantTo> asToList(List<Restaurant> restaurantList) {

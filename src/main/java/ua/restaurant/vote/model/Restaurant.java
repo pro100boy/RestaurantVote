@@ -9,7 +9,6 @@ import org.hibernate.validator.constraints.SafeHtml;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -17,17 +16,16 @@ import java.util.Set;
  * 04.03.2017
  */
 @SuppressWarnings("JpaQlInspection")
-@Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
-@NamedEntityGraph(name = Restaurant.GRAPH_WITH_VOTES_MENUS, attributeNodes =
+@NamedEntityGraph(name = Restaurant.GRAPH_WITH_VOTES_DISHES, attributeNodes =
         {
                 @NamedAttributeNode("votes"),
-                @NamedAttributeNode("menus")
+                @NamedAttributeNode("dishes")
         })
 @Table(name = "restaurants")
 public class Restaurant extends NamedEntity {
-    public static final String GRAPH_WITH_VOTES_MENUS = "Restaurant.withVotesMenus";
+    public static final String GRAPH_WITH_VOTES_DISHES = "Restaurant.withVotesDishes";
 
     @NotBlank
     @Column(name = "description", nullable = false)
@@ -36,18 +34,17 @@ public class Restaurant extends NamedEntity {
     private String description;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
-    @OrderBy("vote_date DESC")
+    @OrderBy("date DESC")
     @JsonManagedReference(value="restaurant-votes")
     private Set<Vote> votes;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
-    @OrderBy("menu_date DESC")
-    @JsonManagedReference(value="restaurant-menus")
-    private Set<Menu> menus;
+    @OrderBy("date DESC")
+    @JsonManagedReference(value="restaurant-dishes")
+    private Set<Dish> dishes;
 
     public Restaurant() {
     }
@@ -73,8 +70,8 @@ public class Restaurant extends NamedEntity {
         return votes;
     }
 
-    public Set<Menu> getMenus() {
-        return menus;
+    public Set<Dish> getDishes() {
+        return dishes;
     }
 
     @Override
