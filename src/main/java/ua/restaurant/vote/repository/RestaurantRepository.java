@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ua.restaurant.vote.model.Restaurant;
+import ua.restaurant.vote.to.ResultTo;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,13 +27,17 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
 
     //List<Restaurant> findAllByOrderByNameAsc();
     List<Restaurant> findAll();
-//TODO проверить что возвращает
+
     // Each restaurant provides new menu each day
-    @Query("SELECT DISTINCT r FROM Restaurant r LEFT JOIN FETCH r.dishes m WHERE m.date = ?1 ORDER BY r.name")
+    //@EntityGraph(value = Restaurant.GRAPH_WITH_VOTES_DISHES)
+    @Query("SELECT DISTINCT r FROM Restaurant r LEFT JOIN FETCH r.dishes d WHERE d.date = ?1 ORDER BY r.name")
     List<Restaurant> findAllForDate(LocalDate date);
 
     @Override
     Restaurant findOne(Integer integer);
 
     List<Restaurant> findByNameIgnoreCaseStartingWith(String name);
+
+    @Query("SELECT new ua.restaurant.vote.to.ResultTo(r.id, r.name, count (v)) FROM Restaurant r LEFT JOIN r.votes v WHERE v.date = ?1 OR v.date IS NULL GROUP BY r.id, r.name ORDER BY count (v) DESC")
+    List<ResultTo> getRes(LocalDate date);
 }

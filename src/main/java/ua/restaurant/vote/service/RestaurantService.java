@@ -2,6 +2,7 @@ package ua.restaurant.vote.service;
 
 import ua.restaurant.vote.model.Restaurant;
 import ua.restaurant.vote.to.RestaurantTo;
+import ua.restaurant.vote.to.ResultTo;
 import ua.restaurant.vote.util.exception.NotFoundException;
 
 import java.time.LocalDate;
@@ -26,4 +27,6 @@ public interface RestaurantService {
     void evictCache();
 
     List<RestaurantTo> findAllForDate(LocalDate date);
+
+    List<ResultTo> getRes(LocalDate date);
 }

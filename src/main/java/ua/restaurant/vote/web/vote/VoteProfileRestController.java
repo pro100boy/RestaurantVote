@@ -5,11 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ua.restaurant.vote.model.Vote;
-import ua.restaurant.vote.to.ResultTo;
 
 import java.net.URI;
-import java.time.LocalDate;
-import java.util.List;
 
 /**
  * Created by Galushkin Pavel on 12.03.2017.
@@ -36,12 +33,5 @@ public class VoteProfileRestController extends AbstractVoteController {
     @PutMapping(value = "/restaurants/{restaurantId}")
     public void update(@PathVariable("restaurantId") int restaurantId) {
         super.update(restaurantId);
-    }
-
-    // poll result for the specified date. If date doesn't present, then date = today
-    @Override
-    @GetMapping(value = "/result")
-    public List<ResultTo> getResultSet(@RequestParam(value = "date", required = false) LocalDate date) {
-        return super.getResultSet(date);
     }
 }

@@ -6,7 +6,6 @@ import org.junit.runners.MethodSorters;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import ua.restaurant.vote.RestaurantTestData;
-import ua.restaurant.vote.ResultTestData;
 import ua.restaurant.vote.VoteTestData;
 import ua.restaurant.vote.model.Vote;
 import ua.restaurant.vote.util.DateTimeUtil;
@@ -17,9 +16,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ua.restaurant.vote.RestaurantTestData.*;
 import static ua.restaurant.vote.TestUtil.userHttpBasic;
@@ -83,15 +81,5 @@ public class VoteProfileRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().is4xxClientError());
 
         DateTimeUtil.setDeadlineVoteTime(DateTimeUtil.DEFAULT_VOTE_DEADLINE_TIME);
-    }
-
-    @Test
-    public void testGetResultSet() throws Exception {
-        mockMvc.perform(get(REST_URL + "/result?date=2017-01-30")
-                .with(userHttpBasic(ADMIN)))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(ResultTestData.MATCHER.contentListMatcher(ResultTestData.RESULT_TO_LIST))
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
 }

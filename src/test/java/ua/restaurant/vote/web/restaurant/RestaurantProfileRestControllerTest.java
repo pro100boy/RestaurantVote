@@ -6,6 +6,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import ua.restaurant.vote.DishTestData;
+import ua.restaurant.vote.ResultTestData;
 import ua.restaurant.vote.TestUtil;
 import ua.restaurant.vote.to.RestaurantTo;
 import ua.restaurant.vote.web.AbstractControllerTest;
@@ -95,5 +96,15 @@ public class RestaurantProfileRestControllerTest extends AbstractControllerTest 
         DishTestData.MATCHER.assertCollectionEquals(
                 Arrays.asList(DishTestData.DISH7, DishTestData.DISH8),
                 returned.stream().flatMap(m -> m.getDishes().stream()).collect(Collectors.toList()));
+    }
+
+    @Test
+    public void testGetResultSet() throws Exception {
+        mockMvc.perform(get(REST_URL + "/results?date=2017-01-30")
+                .with(userHttpBasic(USER1)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(ResultTestData.MATCHER.contentListMatcher(ResultTestData.RESULT_TO_LIST))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
 }

@@ -8,12 +8,12 @@ public class ResultTo {
     //r.ID, r.NAME, COUNT(v.REST_ID)
     private Integer id;
     private String name;
-    private Integer cnt;
+    private Long cnt;
 
     public ResultTo() {
     }
 
-    public ResultTo(Integer id, String name, Integer cnt) {
+    public ResultTo(Integer id, String name, Long cnt) {
         this.id = id;
         this.name = name;
         this.cnt = cnt;
@@ -27,7 +27,7 @@ public class ResultTo {
         return name;
     }
 
-    public Integer getCnt() {
+    public Long getCnt() {
         return cnt;
     }
 

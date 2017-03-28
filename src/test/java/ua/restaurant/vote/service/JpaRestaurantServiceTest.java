@@ -5,9 +5,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ua.restaurant.vote.DishTestData;
+import ua.restaurant.vote.ResultTestData;
 import ua.restaurant.vote.model.Restaurant;
 import ua.restaurant.vote.repository.JpaUtil;
 import ua.restaurant.vote.to.RestaurantTo;
+import ua.restaurant.vote.to.ResultTo;
 
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
@@ -46,5 +48,11 @@ public class JpaRestaurantServiceTest extends AbstractRestaurantServiceTest {
         List<RestaurantTo> restaurantsTo = service.findAllForDate(LocalDate.of(2017, Month.JANUARY, 30));
         Assert.assertEquals(restaurantsTo.size(), 3);
         DishTestData.MATCHER.assertCollectionEquals(restaurantsTo.stream().flatMap(m->m.getDishes().stream()).collect(Collectors.toList()), DishTestData.DISHES);
+    }
+
+    @Test
+    public void testGetRes() throws Exception {
+        List<ResultTo> resultSet = service.getRes(LocalDate.of(2017, Month.JANUARY, 30));
+        ResultTestData.MATCHER.assertCollectionEquals(ResultTestData.RESULT_TO_LIST, resultSet);
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.util.Assert;
 import ua.restaurant.vote.model.Restaurant;
 import ua.restaurant.vote.repository.RestaurantRepository;
 import ua.restaurant.vote.to.RestaurantTo;
+import ua.restaurant.vote.to.ResultTo;
 import ua.restaurant.vote.util.RestaurantUtil;
 import ua.restaurant.vote.util.exception.NotFoundException;
 
@@ -75,5 +76,11 @@ public class RestaurantServiceImpl implements RestaurantService {
     public List<RestaurantTo> findAllForDate(LocalDate date) {
         Assert.notNull(date, "date must not be null");
         return RestaurantUtil.asToList(repository.findAllForDate(date));
+    }
+
+    @Override
+    public List<ResultTo> getRes(LocalDate date) {
+        Assert.notNull(date, "date must not be null");
+        return repository.getRes(date);
     }
 }

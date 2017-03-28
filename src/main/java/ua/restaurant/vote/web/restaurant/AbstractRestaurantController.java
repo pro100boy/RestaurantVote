@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ua.restaurant.vote.model.Restaurant;
 import ua.restaurant.vote.service.RestaurantService;
 import ua.restaurant.vote.to.RestaurantTo;
+import ua.restaurant.vote.to.ResultTo;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -57,5 +58,11 @@ public abstract class AbstractRestaurantController {
         checkIdConsistent(restaurant, id);
         log.info("update " + restaurant);
         service.update(restaurant);
+    }
+
+    public List<ResultTo> get(LocalDate date) {
+        if (date == null) date = LocalDate.now();
+        log.info("get poll result for date {}", date);
+        return service.getRes(date);
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ua.restaurant.vote.model.Restaurant;
 import ua.restaurant.vote.to.RestaurantTo;
+import ua.restaurant.vote.to.ResultTo;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -30,6 +31,13 @@ public class RestaurantProfileRestController extends AbstractRestaurantControlle
     @GetMapping
     public List<Restaurant> getAll() {
         return super.getAll();
+    }
+
+    // poll result for the specified date. If date doesn't present, then date = today
+    @Override
+    @GetMapping(value = "/results")
+    public List<ResultTo> get(@RequestParam(value = "date", required = false) LocalDate date) {
+        return super.get(date);
     }
 
     @Override

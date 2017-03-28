@@ -7,7 +7,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ua.restaurant.vote.model.Dish;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -28,9 +27,4 @@ public interface DishRepository extends JpaRepository<Dish, Integer> {
 
     @Query("SELECT d FROM Dish d WHERE d.restaurant.id=?1 ORDER BY d.date DESC")
     List<Dish> getAllByRestaurant(int restaurantId);
-
-    // TODO убрать - никому эта история не нужна
-    @SuppressWarnings("JpaQlInspection")
-    @Query("SELECT m FROM Dish m WHERE m.restaurant.id=:restaurantId AND m.date BETWEEN :startDate AND :endDate ORDER BY m.date DESC")
-    List<Dish> getAllBetweenDates(@Param("restaurantId") int restaurantId, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }

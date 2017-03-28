@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ua.restaurant.vote.model.Vote;
-import ua.restaurant.vote.to.ResultTo;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -33,7 +32,4 @@ public interface VoteRepository extends JpaRepository<Vote, Integer> {
 
     @Query("SELECT v FROM Vote v WHERE v.user.id=?1 ORDER BY v.date DESC")
     List<Vote> getAll(int userId);
-
-    @Query(name = "getResultTo")
-    List<ResultTo> getResultSet(@Param("date") LocalDate date);
 }

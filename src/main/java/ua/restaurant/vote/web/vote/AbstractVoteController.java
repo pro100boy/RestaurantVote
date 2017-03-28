@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ua.restaurant.vote.AuthorizedUser;
 import ua.restaurant.vote.model.Vote;
 import ua.restaurant.vote.service.VoteService;
-import ua.restaurant.vote.to.ResultTo;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -51,11 +49,5 @@ public class AbstractVoteController {
         int userId = AuthorizedUser.id();
         log.info("update vote for User {} and Restaurant {}", AuthorizedUser.get(), restaurantId);
         service.update(userId, restaurantId);
-    }
-
-    public List<ResultTo> getResultSet(LocalDate date) {
-        if (date == null) date = LocalDate.now();
-        log.info("get vote result for date {}", date);
-        return service.getResultSet(date);
     }
 }

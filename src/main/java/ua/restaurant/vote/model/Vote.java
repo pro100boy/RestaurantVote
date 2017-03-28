@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
-import ua.restaurant.vote.to.ResultTo;
 import ua.restaurant.vote.util.DateTimeUtil;
 
 import javax.persistence.*;
@@ -15,22 +14,6 @@ import java.time.LocalDate;
  * Galushkin Pavel
  * 04.03.2017
  */
-@SqlResultSetMapping(
-        name = "ResultToMapping",
-        classes = @ConstructorResult(
-                targetClass = ResultTo.class,
-                columns = {
-                        @ColumnResult(name = "id", type = Integer.class),
-                        @ColumnResult(name = "name"),
-                        @ColumnResult(name = "cnt", type = Integer.class)}))
-
-@NamedNativeQueries({
-        @NamedNativeQuery(name = "getResultTo", query =
-                "SELECT r.ID, r.NAME, COUNT(v.REST_ID) AS cnt FROM RESTAURANTS r LEFT JOIN VOTES v ON r.ID=v.REST_ID\n" +
-                        "WHERE v.DATE = :date OR v.DATE IS NULL\n" +
-                        "GROUP BY r.ID, r.NAME ORDER BY cnt DESC", resultSetMapping = "ResultToMapping")
-})
-
 @Entity
 @Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date"}, name = "user_date_unique_idx")})
 public class Vote extends BaseEntity{

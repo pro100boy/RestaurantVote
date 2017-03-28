@@ -84,10 +84,4 @@ public class VoteServiceImpl implements VoteService {
         Vote vote = voteRepository.findOne(id);
         return checkNotFoundWithId((vote != null && vote.getUser().getId() == userId ? vote : null), id);
     }
-
-    @Override
-    public List<ResultTo> getResultSet(LocalDate date) {
-        Assert.notNull(date, "date must not be null");
-        return voteRepository.getResultSet(date);
-    }
 }
