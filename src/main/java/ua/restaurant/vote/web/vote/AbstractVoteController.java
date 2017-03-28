@@ -7,9 +7,6 @@ import ua.restaurant.vote.AuthorizedUser;
 import ua.restaurant.vote.model.Vote;
 import ua.restaurant.vote.service.VoteService;
 import ua.restaurant.vote.to.ResultTo;
-import ua.restaurant.vote.to.VoteToJSONView;
-import ua.restaurant.vote.util.DateTimeUtil;
-import ua.restaurant.vote.util.VoteUtil;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -34,8 +31,7 @@ public class AbstractVoteController {
         return service.getAll(userId);
     }
 
-    public Vote get(int id) {
-        int userId = AuthorizedUser.id();
+    public Vote get(int id,  int userId) {
         log.info("get vote {} for User {}", id, userId);
         return service.get(id, userId);
     }
@@ -55,20 +51,6 @@ public class AbstractVoteController {
         int userId = AuthorizedUser.id();
         log.info("update vote for User {} and Restaurant {}", AuthorizedUser.get(), restaurantId);
         service.update(userId, restaurantId);
-    }
-
-    public List<VoteToJSONView> getWithRestaurantForPeriod(int restaurantId, LocalDate startDate, LocalDate endDate) {
-        log.info("getWithRestaurantForPeriod for restaurant {} between {} and {}", restaurantId, startDate, endDate);
-        return VoteUtil.asToList(service.getWithRestaurantForPeriod(restaurantId,
-                startDate != null ? startDate : DateTimeUtil.MIN_DATE,
-                endDate != null ? endDate : DateTimeUtil.MAX_DATE), false);
-    }
-
-    public List<VoteToJSONView> getWithUserForPeriod(int userId, LocalDate startDate, LocalDate endDate) {
-        log.info("getWithUserForPeriod for user {} between {} and {}", userId, startDate, endDate);
-        return VoteUtil.asToList(service.getWithUserForPeriod(userId,
-                startDate != null ? startDate : DateTimeUtil.MIN_DATE,
-                endDate != null ? endDate : DateTimeUtil.MAX_DATE), true);
     }
 
     public List<ResultTo> getResultSet(LocalDate date) {

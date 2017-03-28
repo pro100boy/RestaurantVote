@@ -3,9 +3,7 @@ package ua.restaurant.vote.web.vote;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ua.restaurant.vote.model.Vote;
-import ua.restaurant.vote.to.VoteToJSONView;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -32,21 +30,10 @@ public class VoteAdminRestController extends AbstractVoteController {
         return super.getAll(userId);
     }
 
-    // get user's list with votes for period
-    @GetMapping(value = "/users/{userId}/between")
-    public List<VoteToJSONView> getWithUserForPeriod(
-            @PathVariable("userId") int userId,
-            @RequestParam(value = "startDate", required = false) LocalDate startDate,
-            @RequestParam(value = "endDate", required = false) LocalDate endDate) {
-        return super.getWithUserForPeriod(userId, startDate, endDate);
-    }
-
-    // get votes list for period for specific restaurant
-    @GetMapping(value = "/restaurants/{restId}/between")
-    public List<VoteToJSONView> getWithRestaurantForPeriod(
-            @PathVariable("restId") int restId,
-            @RequestParam(value = "startDate", required = false) LocalDate startDate,
-            @RequestParam(value = "endDate", required = false) LocalDate endDate) {
-        return super.getWithRestaurantForPeriod(restId, startDate, endDate);
+    // get specific vote
+    @Override
+    @GetMapping(value = "/{id}/users/{userId}")
+    public Vote get(@PathVariable("id") int id, @PathVariable("userId") int userId) {
+        return super.get(id, userId);
     }
 }

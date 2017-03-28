@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ua.restaurant.vote.model.Restaurant;
 import ua.restaurant.vote.service.RestaurantService;
 import ua.restaurant.vote.to.RestaurantTo;
-import ua.restaurant.vote.util.DateTimeUtil;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -58,13 +57,5 @@ public abstract class AbstractRestaurantController {
         checkIdConsistent(restaurant, id);
         log.info("update " + restaurant);
         service.update(restaurant);
-    }
-
-    public Restaurant getBetween(int id, LocalDate startDate, LocalDate endDate)
-    {
-        log.info("getWithParamsForPeriod between dates {} - {} for Restaurant id {}", startDate, endDate, id);
-        return service.getWithParamsForPeriod(id,
-                startDate != null ? startDate : DateTimeUtil.MIN_DATE,
-                endDate != null ? endDate : DateTimeUtil.MAX_DATE);
     }
 }

@@ -11,15 +11,15 @@ import java.util.Set;
 public class RestaurantTo extends BaseTo implements Serializable {
     private static final long serialVersionUID = 1L;
     private String name;
-    private Set<Dish> menus;
+    private Set<Dish> dishes;
 
     public RestaurantTo() {
     }
 
-    public RestaurantTo(Integer id, String name, Set<Dish> menus) {
+    public RestaurantTo(Integer id, String name, Set<Dish> dishes) {
         super(id);
         this.name = name;
-        this.menus = menus;
+        this.dishes = dishes;
     }
 
     public String getName() {
@@ -30,12 +30,12 @@ public class RestaurantTo extends BaseTo implements Serializable {
         this.name = name;
     }
 
-    public Set<Dish> getMenus() {
-        return menus;
+    public Set<Dish> getDishes() {
+        return dishes;
     }
 
-    public void setMenus(Set<Dish> menus) {
-        this.menus = menus;
+    public void setDishes(Set<Dish> dishes) {
+        this.dishes = dishes;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RestaurantTo extends BaseTo implements Serializable {
         return "RestaurantTo{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", menus=" + menus +
+                ", dishes=" + dishes +
                 '}';
     }
 }

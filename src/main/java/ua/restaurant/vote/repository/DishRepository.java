@@ -27,8 +27,9 @@ public interface DishRepository extends JpaRepository<Dish, Integer> {
     Dish findOne(Integer id);
 
     @Query("SELECT d FROM Dish d WHERE d.restaurant.id=?1 ORDER BY d.date DESC")
-    List<Dish> getAllWithRestaurant(int restaurantId);
-    // TODO убрать
+    List<Dish> getAllByRestaurant(int restaurantId);
+
+    // TODO убрать - никому эта история не нужна
     @SuppressWarnings("JpaQlInspection")
     @Query("SELECT m FROM Dish m WHERE m.restaurant.id=:restaurantId AND m.date BETWEEN :startDate AND :endDate ORDER BY m.date DESC")
     List<Dish> getAllBetweenDates(@Param("restaurantId") int restaurantId, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);

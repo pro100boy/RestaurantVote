@@ -1,7 +1,6 @@
 package ua.restaurant.vote.web.vote;
 
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.http.MediaType;
@@ -10,17 +9,14 @@ import ua.restaurant.vote.web.AbstractControllerTest;
 
 import java.util.Arrays;
 
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static ua.restaurant.vote.RestaurantTestData.RESTAURANT1_ID;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ua.restaurant.vote.TestUtil.userHttpBasic;
-import static ua.restaurant.vote.UserTestData.ADMIN;
-import static ua.restaurant.vote.UserTestData.USER1_ID;
+import static ua.restaurant.vote.UserTestData.*;
+import static ua.restaurant.vote.VoteTestData.MATCHER;
 import static ua.restaurant.vote.VoteTestData.*;
 
 /**
@@ -52,26 +48,27 @@ public class VoteAdminRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testGetWithUserForPeriod() throws Exception {
-        mockMvc.perform(get(REST_URL + "users/" + USER1_ID + "/between")
-                .param("startDate", "2017-01-30")
-                .param("endDate", "2017-02-20")
+    public void testGetNotFound() throws Exception {
+        mockMvc.perform(get(REST_URL + VOTE2_ID + "/users/1")
                 .with(userHttpBasic(ADMIN)))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(MATCHER_TO.contentListMatcher(VOTE_TO_JSON_VIEW6, VOTE_TO_JSON_VIEW5))
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+                .andExpect(status().isUnprocessableEntity())
+                .andDo(print());
     }
 
     @Test
-    public void testGetWithRestaurantForPeriod() throws Exception {
-        mockMvc.perform(get(REST_URL + "restaurants/" + RESTAURANT1_ID + "/between")
-                .param("startDate", "2017-01-30")
-                .param("endDate", "2017-02-20")
+    public void testGet() throws Exception {
+        mockMvc.perform(get(REST_URL + VOTE2_ID + "/users/" + USER1_ID)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(MATCHER_TO.contentListMatcher(VOTE_TO_JSON_VIEWS))
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(MATCHER.contentMatcher(VOTE2));
     }
+
+    @Test
+    public void testGetUnauth() throws Exception {
+        mockMvc.perform(get(REST_URL + VOTE1_ID))
+                .andExpect(status().isUnauthorized());
+    }
+
 }

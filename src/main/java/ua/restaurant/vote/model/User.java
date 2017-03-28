@@ -1,10 +1,10 @@
 package ua.restaurant.vote.model;
 
-import com.fasterxml.jackson.annotation.*;
 import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.validator.constraints.*;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
@@ -14,14 +14,9 @@ import java.util.*;
  * Galushkin Pavel
  * 04.03.2017
  */
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Cacheable
 @Entity
-@NamedEntityGraph(name = User.GRAPH_WITH_VOTES, attributeNodes = {@NamedAttributeNode("votes")})
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
 public class User extends NamedEntity {
-
-    public static final String GRAPH_WITH_VOTES = "User.withVotes";
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
@@ -41,7 +36,6 @@ public class User extends NamedEntity {
     @Column(name = "registered", columnDefinition = "timestamp default now()")
     private Date registered = new Date();
 
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
@@ -49,12 +43,6 @@ public class User extends NamedEntity {
     //@Fetch(FetchMode.SUBSELECT)
     @BatchSize(size = 200)
     private Set<Role> roles;
-
-    @SuppressWarnings("JpaQlInspection")
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    @OrderBy("vote_date DESC")
-    @JsonManagedReference(value="user-votes")
-    protected Set<Vote> votes;
 
     public User() {
     }
@@ -108,14 +96,6 @@ public class User extends NamedEntity {
         return roles;
     }
 
- /*   public void setVotes(Set<Vote> votes) {
-        this.votes = CollectionUtils.isEmpty(votes) ? Collections.emptySet() : new HashSet<>(votes);
-    }*/
-
-    public Collection<Vote> getVotes() {
-        return votes;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -132,7 +112,6 @@ public class User extends NamedEntity {
                 ", name=" + name +
                 ", enabled=" + enabled +
                 ", roles=" + roles +
-                //", votes=" + votes +
                 ')';
     }
 }

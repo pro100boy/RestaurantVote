@@ -79,7 +79,7 @@ public class RestaurantProfileRestControllerTest extends AbstractControllerTest 
         List<RestaurantTo> returned = JsonUtil.readValues(TestUtil.getContent(action), RestaurantTo.class);
         DishTestData.MATCHER.assertCollectionEquals(
                 DishTestData.DISHES,
-                returned.stream().flatMap(m -> m.getMenus().stream()).collect(Collectors.toList())
+                returned.stream().flatMap(m -> m.getDishes().stream()).collect(Collectors.toList())
         );
     }
 
@@ -94,6 +94,6 @@ public class RestaurantProfileRestControllerTest extends AbstractControllerTest 
         List<RestaurantTo> returned = JsonUtil.readValues(TestUtil.getContent(action), RestaurantTo.class);
         DishTestData.MATCHER.assertCollectionEquals(
                 Arrays.asList(DishTestData.DISH7, DishTestData.DISH8),
-                returned.stream().flatMap(m -> m.getMenus().stream()).collect(Collectors.toList()));
+                returned.stream().flatMap(m -> m.getDishes().stream()).collect(Collectors.toList()));
     }
 }

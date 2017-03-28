@@ -26,6 +26,4 @@ public interface RestaurantService {
     void evictCache();
 
     List<RestaurantTo> findAllForDate(LocalDate date);
-
-    Restaurant getWithParamsForPeriod(int id, LocalDate startDate, LocalDate endDate);
 }

@@ -1,6 +1,5 @@
 package ua.restaurant.vote.repository;
 
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -27,18 +26,13 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
 
     //List<Restaurant> findAllByOrderByNameAsc();
     List<Restaurant> findAll();
-
+//TODO проверить что возвращает
     // Each restaurant provides new menu each day
-    @Query("SELECT DISTINCT r FROM Restaurant r LEFT JOIN FETCH r.votes v LEFT JOIN FETCH r.dishes m " +
-            "WHERE v.date = ?1 AND m.date = ?1 ORDER BY r.name")
+    @Query("SELECT DISTINCT r FROM Restaurant r LEFT JOIN FETCH r.dishes m WHERE m.date = ?1 ORDER BY r.name")
     List<Restaurant> findAllForDate(LocalDate date);
 
     @Override
     Restaurant findOne(Integer integer);
 
     List<Restaurant> findByNameIgnoreCaseStartingWith(String name);
-
-    @EntityGraph(value = Restaurant.GRAPH_WITH_VOTES_DISHES)
-    @Query("SELECT r FROM Restaurant r JOIN FETCH r.votes v WHERE r.id=:id AND v.date BETWEEN :startDate AND :endDate")
-    Restaurant getWithParamsForPeriod(@Param("id") int id, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }

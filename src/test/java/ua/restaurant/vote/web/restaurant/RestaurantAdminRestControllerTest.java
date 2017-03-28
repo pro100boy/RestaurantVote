@@ -6,8 +6,6 @@ import org.junit.runners.MethodSorters;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
-import ua.restaurant.vote.DishTestData;
-import ua.restaurant.vote.VoteTestData;
 import ua.restaurant.vote.model.Restaurant;
 import ua.restaurant.vote.web.AbstractControllerTest;
 import ua.restaurant.vote.web.json.JsonUtil;
@@ -16,7 +14,6 @@ import java.util.Arrays;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ua.restaurant.vote.RestaurantTestData.*;
 import static ua.restaurant.vote.TestUtil.userHttpBasic;
@@ -108,33 +105,5 @@ public class RestaurantAdminRestControllerTest extends AbstractControllerTest {
                 .content(JsonUtil.writeValue(invalid)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
-    }
-
-    @Test
-    public void testGetBetween() throws Exception {
-        ResultActions action = mockMvc.perform(get(REST_URL + RESTAURANT1_ID + "/between")
-                .param("startDate", "2017-01-30")
-                .param("endDate", "2017-02-20")
-                .with(userHttpBasic(ADMIN)))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-
-        Restaurant returned = MATCHER.fromJsonAction(action);
-        VoteTestData.MATCHER.assertCollectionEquals(Arrays.asList(VoteTestData.VOTE5, VoteTestData.VOTE6, VoteTestData.VOTE1), returned.getVotes());
-        DishTestData.MATCHER.assertCollectionEquals(Arrays.asList(DishTestData.DISH1, DishTestData.DISH4), returned.getDishes());
-    }
-
-    @Test
-    public void testGetBetweenAll() throws Exception {
-        ResultActions action = mockMvc.perform(get(REST_URL + RESTAURANT1_ID + "/between?startDate=&endDate=")
-                .with(userHttpBasic(ADMIN)))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-
-        Restaurant returned = MATCHER.fromJsonAction(action);
-        VoteTestData.MATCHER.assertCollectionEquals(Arrays.asList(VoteTestData.VOTE5, VoteTestData.VOTE6, VoteTestData.VOTE8, VoteTestData.VOTE1), returned.getVotes());
-        DishTestData.MATCHER.assertCollectionEquals(Arrays.asList(DishTestData.DISH1, DishTestData.DISH4), returned.getDishes());
     }
 }

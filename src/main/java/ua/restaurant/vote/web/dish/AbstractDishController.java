@@ -5,9 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import ua.restaurant.vote.model.Dish;
 import ua.restaurant.vote.service.DishService;
-import ua.restaurant.vote.util.DateTimeUtil;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static ua.restaurant.vote.util.ValidationUtil.checkIdConsistent;
@@ -47,15 +45,5 @@ public abstract class AbstractDishController {
     public List<Dish> getAll(int restaurantId) {
         log.info("getAll for Restaurant {}", restaurantId);
         return service.getAllByRestaurant(restaurantId);
-    }
-
-    public List<Dish> getBetween(int restaurantId, LocalDate startDate, LocalDate endDate) {
-        log.info("getBetween dates {} - {} for Restaurant {}", startDate, endDate, restaurantId);
-
-        return service.getAllByRestaurant(
-                restaurantId,
-                startDate != null ? startDate : DateTimeUtil.MIN_DATE,
-                endDate != null ? endDate : DateTimeUtil.MAX_DATE
-        );
     }
 }

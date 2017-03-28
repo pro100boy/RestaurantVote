@@ -7,7 +7,6 @@ import ua.restaurant.vote.model.User;
 import ua.restaurant.vote.to.UserTo;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 
 /**
  * Created by Galushkin Pavel on 05.03.2017.
@@ -30,11 +29,5 @@ public class ProfileRestController extends AbstractUserController {
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void update(@Valid @RequestBody UserTo userTo) {
         super.update(userTo, AuthorizedUser.id());
-    }
-
-    @GetMapping(value = "/between", produces = MediaType.APPLICATION_JSON_VALUE)
-    public User get(@RequestParam(value = "startDate", required = false) LocalDate startDate,
-                    @RequestParam(value = "endDate", required = false) LocalDate endDate) {
-        return super.getBetween(AuthorizedUser.id(), startDate, endDate);
     }
 }

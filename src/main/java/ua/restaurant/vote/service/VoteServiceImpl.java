@@ -68,10 +68,10 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
-    public Vote getVote(int userId, LocalDate date) {
+    public Vote getVote(int userId, LocalDate date) throws NotFoundException {
         Vote vote = voteRepository.getVote(userId, date);
         Assert.notNull(vote, "vote must not be null");
-        return vote;
+        return checkNotFoundWithId(vote, vote.getId());
     }
 
     @Override
@@ -83,20 +83,6 @@ public class VoteServiceImpl implements VoteService {
     public Vote get(int id, int userId) throws NotFoundException {
         Vote vote = voteRepository.findOne(id);
         return checkNotFoundWithId((vote != null && vote.getUser().getId() == userId ? vote : null), id);
-    }
-
-    @Override
-    public List<Vote> getWithUserForPeriod(int userId, LocalDate startDate, LocalDate endDate) {
-        Assert.notNull(startDate, "startDate must not be null");
-        Assert.notNull(endDate, "endDate  must not be null");
-        return voteRepository.getWithUserForPeriod(userId, startDate, endDate);
-    }
-
-    @Override
-    public List<Vote> getWithRestaurantForPeriod(int restaurantId, LocalDate startDate, LocalDate endDate) {
-        Assert.notNull(startDate, "startDate must not be null");
-        Assert.notNull(endDate, "endDate  must not be null");
-        return voteRepository.getWithRestaurantForPeriod(restaurantId, startDate, endDate);
     }
 
     @Override

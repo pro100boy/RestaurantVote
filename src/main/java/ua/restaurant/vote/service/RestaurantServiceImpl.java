@@ -69,17 +69,11 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public void evictCache() {}
 
+    // polls
+    @Cacheable("restaurants")
     @Override
     public List<RestaurantTo> findAllForDate(LocalDate date) {
         Assert.notNull(date, "date must not be null");
         return RestaurantUtil.asToList(repository.findAllForDate(date));
-    }
-
-    @Cacheable("restaurants")
-    @Override
-    public Restaurant getWithParamsForPeriod(int id, LocalDate startDate, LocalDate endDate) {
-        Assert.notNull(startDate, "startDate must not be null");
-        Assert.notNull(endDate, "endDate must not be null");
-        return repository.getWithParamsForPeriod(id, startDate, endDate);
     }
 }

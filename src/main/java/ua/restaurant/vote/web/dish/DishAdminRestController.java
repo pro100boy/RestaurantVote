@@ -8,7 +8,6 @@ import ua.restaurant.vote.model.Dish;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -17,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = DishAdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class DishAdminRestController extends AbstractDishController {
-    static final String REST_URL = "/rest/admin/restaurants/{restaurantId}/menus";
+    static final String REST_URL = "/rest/admin/restaurants/{restaurantId}/dishes";
 
     // returns concrete menu of the restaurant
     @Override
@@ -54,12 +53,5 @@ public class DishAdminRestController extends AbstractDishController {
                 .buildAndExpand(restaurantId, created.getId()).toUri();
 
         return ResponseEntity.created(uriOfNewResource).body(created);
-    }
-
-    @GetMapping(value = "/between")
-    public List<Dish> getBetween(@PathVariable("restaurantId") int restaurantId,
-                                 @RequestParam(value = "startDate", required = false) LocalDate startDate,
-                                 @RequestParam(value = "endDate", required = false) LocalDate endDate) {
-        return super.getBetween(restaurantId, startDate, endDate);
     }
 }

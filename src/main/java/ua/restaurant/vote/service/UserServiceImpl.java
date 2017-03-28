@@ -12,7 +12,6 @@ import ua.restaurant.vote.repository.UserRepository;
 import ua.restaurant.vote.to.UserTo;
 import ua.restaurant.vote.util.exception.NotFoundException;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static ua.restaurant.vote.util.UserUtil.prepareToSave;
@@ -77,23 +76,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User getWithVotes(int id) {
-        return checkNotFoundWithId(repository.getWithVotes(id), id);
-    }
-
-    @Override
     public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
         User u = repository.getByEmail(email.toLowerCase());
         if (u == null) {
             throw new UsernameNotFoundException("User " + email + " is not found");
         }
         return new AuthorizedUser(u);
-    }
-
-    @Override
-    public User getWithVotesForPeriod(int id, LocalDate startDate, LocalDate endDate) {
-        Assert.notNull(startDate, "startDate must not be null");
-        Assert.notNull(endDate, "endDate  must not be null");
-        return repository.getWithVotesForPeriod(id, startDate, endDate);
     }
 }

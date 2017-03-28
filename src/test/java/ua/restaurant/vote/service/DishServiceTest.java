@@ -8,8 +8,6 @@ import ua.restaurant.vote.repository.JpaUtil;
 import ua.restaurant.vote.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.Arrays;
 
 import static ua.restaurant.vote.DishTestData.*;
@@ -70,11 +68,6 @@ public class DishServiceTest extends AbstractServiceTest {
     @Test
     public void testGetAll() throws Exception {
         MATCHER.assertCollectionEquals(Arrays.asList(DISH4, DISH1), service.getAllByRestaurant(RESTAURANT1_ID));
-    }
-
-    @Test
-    public void testGetAllBetweenDates() throws Exception {
-        MATCHER.assertCollectionEquals(Arrays.asList(DISH1), service.getAllByRestaurant(RESTAURANT1_ID, LocalDate.of(2017, Month.JANUARY, 1), LocalDate.of(2017, Month.JANUARY, 31)));
     }
 
     @Test

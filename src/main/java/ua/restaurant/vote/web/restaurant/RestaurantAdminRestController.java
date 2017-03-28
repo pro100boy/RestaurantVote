@@ -8,7 +8,6 @@ import ua.restaurant.vote.model.Restaurant;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.time.LocalDate;
 
 /**
  * Created by Galushkin Pavel on 06.03.2017.
@@ -45,12 +44,5 @@ public class RestaurantAdminRestController extends AbstractRestaurantController 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void update(@Valid @RequestBody Restaurant restaurant, @PathVariable("id") int id) {
         super.update(restaurant, id);
-    }
-
-    @GetMapping(value = "/{id}/between")
-    public Restaurant getBetween(@PathVariable("id") int id,
-                                 @RequestParam(value = "startDate", required = false) LocalDate startDate,
-                                 @RequestParam(value = "endDate", required = false) LocalDate endDate) {
-        return super.getBetween(id, startDate, endDate);
     }
 }

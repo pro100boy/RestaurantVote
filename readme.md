@@ -23,7 +23,7 @@ Goal cURL commands:
 ### *Get results of vote for the specified date. If date isn't presented, then date = today*
 `curl -s http://localhost:8080/vote/rest/profile/votes/result?date= --user user@ya.ru:password`
 
-### *Get a list of restaurants with menus for date. If date isn't presented, then date = today*
+### *Get a list of restaurants with dishes for date. If date isn't presented, then date = today*
 `curl -s http://localhost:8080/vote/rest/profile/restaurants/polls?date=2017-02-20 --user user@ya.ru:password`
 
 ----------
@@ -64,7 +64,7 @@ Some other cURL commands:
 -  update Restaurant 100004
 > `curl -s -X PUT -d '{"name": "Updated Restaurant","description": "Description of Updated Restaurant"}' -H 'Content-Type: application/json' http://localhost:8080/vote/rest/admin/restaurants/100004 --user admin@gmail.com:admin`
 
-- get the restaurant 100004 with menus and votes between dates:
+- get the restaurant 100004 with dishes and votes between dates:
 
 > `curl -s http://localhost:8080/vote/rest/admin/restaurants/100004/between?startDate=&endDate= --user admin@gmail.com:admin`
 
@@ -108,24 +108,24 @@ Some other cURL commands:
 
 #### Test MenuAdminRestController
 
-- get all menus of the restaurant 100004
+- get all dishes of the restaurant 100004
 
-> `curl -s http://localhost:8080/vote/rest/admin/restaurants/100004/menus --user admin@gmail.com:admin`
+> `curl -s http://localhost:8080/vote/rest/admin/restaurants/100004/dishes --user admin@gmail.com:admin`
 
 - get menu 100007 of the restaurant 100004
 
-> `curl -s http://localhost:8080/vote/rest/admin/restaurants/100004/menus/100007 --user admin@gmail.com:admin`
+> `curl -s http://localhost:8080/vote/rest/admin/restaurants/100004/dishes/100007 --user admin@gmail.com:admin`
 
 - create menu for restaurant 100004
 
-> `curl -s -X POST -d '{"name": "New Menu","date": "2017-03-25", "price" : 8.99}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/vote/rest/admin/restaurants/100004/menus --user  admin@gmail.com:admin`
+> `curl -s -X POST -d '{"name": "New Menu","date": "2017-03-25", "price" : 8.99}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/vote/rest/admin/restaurants/100004/dishes --user  admin@gmail.com:admin`
 
 - delete menu 100010 of the restaurant 100004
 
-> `curl -s -X DELETE http://localhost:8080/vote/rest/admin/restaurants/100004/menus/100010 --user admin@gmail.com:admin`
+> `curl -s -X DELETE http://localhost:8080/vote/rest/admin/restaurants/100004/dishes/100010 --user admin@gmail.com:admin`
 
 #### Test MenuProfileRestController
 
-- get today's menus of the restaurant 100005
+- get today's dishes of the restaurant 100005
 
-> `curl -s http://localhost:8080/vote/rest/profile/restaurants/100005/menus --user user@ya.ru:password`
+> `curl -s http://localhost:8080/vote/rest/profile/restaurants/100005/dishes --user user@ya.ru:password`

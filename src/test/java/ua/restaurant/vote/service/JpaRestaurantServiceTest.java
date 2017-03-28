@@ -5,22 +5,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ua.restaurant.vote.DishTestData;
-import ua.restaurant.vote.VoteTestData;
 import ua.restaurant.vote.model.Restaurant;
-import ua.restaurant.vote.to.RestaurantTo;
 import ua.restaurant.vote.repository.JpaUtil;
+import ua.restaurant.vote.to.RestaurantTo;
 
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static ua.restaurant.vote.DishTestData.DISH1;
-import static ua.restaurant.vote.DishTestData.DISH4;
-import static ua.restaurant.vote.RestaurantTestData.*;
-import static ua.restaurant.vote.VoteTestData.VOTES_REST;
 
 /**
  * Created by Galushkin Pavel on 07.03.2017.
@@ -49,17 +42,9 @@ public class JpaRestaurantServiceTest extends AbstractRestaurantServiceTest {
     }
 
     @Test
-    public void testGetWithParamsForPeriod() throws Exception {
-        Restaurant restaurant = service.getWithParamsForPeriod(RESTAURANT1_ID, LocalDate.of(2016, Month.JANUARY, 30), LocalDate.of(2018, Month.JANUARY, 30));
-        MATCHER.assertEquals(RESTAURANT1, restaurant);
-        VoteTestData.MATCHER.assertCollectionEquals(VOTES_REST, restaurant.getVotes());
-        DishTestData.MATCHER.assertCollectionEquals(Arrays.asList(DISH4, DISH1), restaurant.getDishes());
-    }
-
-    @Test
     public void testFindAllForDate() throws Exception {
         List<RestaurantTo> restaurantsTo = service.findAllForDate(LocalDate.of(2017, Month.JANUARY, 30));
         Assert.assertEquals(restaurantsTo.size(), 3);
-        DishTestData.MATCHER.assertCollectionEquals(restaurantsTo.stream().flatMap(m->m.getMenus().stream()).collect(Collectors.toList()), DishTestData.DISHES);
+        DishTestData.MATCHER.assertCollectionEquals(restaurantsTo.stream().flatMap(m->m.getDishes().stream()).collect(Collectors.toList()), DishTestData.DISHES);
     }
 }

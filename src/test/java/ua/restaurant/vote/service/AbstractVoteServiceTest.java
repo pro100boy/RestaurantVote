@@ -36,14 +36,6 @@ public abstract class AbstractVoteServiceTest extends AbstractServiceTest {
         MATCHER.assertEquals(created, voteService.getVote(USER1_ID, LocalDate.now()));
     }
 
-    @Test
-    public void testDelete() throws Exception {
-        voteService.delete(VOTE1_ID, ADMIN_ID);
-        MATCHER.assertCollectionEquals(
-                Arrays.asList(VOTE5),
-                voteService.getWithUserForPeriod(ADMIN_ID, DateTimeUtil.MIN_DATE, DateTimeUtil.MAX_DATE));
-    }
-
     @Test(expected = NotFoundException.class)
     public void testNotFoundDelete() throws Exception {
         voteService.delete(1, 1);

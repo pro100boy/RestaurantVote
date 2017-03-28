@@ -19,17 +19,7 @@ public interface VoteService {
 
     List<Vote> getAll(int userId);
 
-    Vote getVote(int userId, LocalDate date);
-
-    /**
-     * get votes from specific user for all restaurants for period
-     */
-    List<Vote> getWithUserForPeriod(int userId, LocalDate startDate, LocalDate endDate);
-
-    /**
-     * get list of users who voted for the specified restaurant for period
-     */
-    List<Vote> getWithRestaurantForPeriod(int restaurantId, LocalDate startDate, LocalDate endDate);
+    Vote getVote(int userId, LocalDate date) throws NotFoundException;
 
     Vote update(int userId, int restaurantId) throws NotFoundException;
 
