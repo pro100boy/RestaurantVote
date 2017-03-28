@@ -18,7 +18,7 @@ public interface VoteService {
 
     List<Vote> getAll(int userId);
 
-    Vote getVote(int userId, LocalDate date) throws NotFoundException;
+    Vote getVote(int userId, LocalDate date);
 
-    Vote update(int userId, int restaurantId) throws NotFoundException;
+    Vote update(Vote vote, int restaurantId) throws NotFoundException;
 }

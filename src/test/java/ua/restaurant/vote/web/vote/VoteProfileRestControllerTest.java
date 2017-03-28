@@ -18,6 +18,7 @@ import java.util.Arrays;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ua.restaurant.vote.RestaurantTestData.*;
 import static ua.restaurant.vote.TestUtil.userHttpBasic;
@@ -35,14 +36,14 @@ public class VoteProfileRestControllerTest extends AbstractControllerTest {
     @Test
     @Transactional
     public void testCreate() throws Exception {
-        mockMvc.perform(post(REST_URL + "restaurants/{restaurantId}", RESTAURANT2_ID)
+        mockMvc.perform(post(REST_URL + "{restaurantId}", RESTAURANT2_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(USER1))
                 .content(JsonUtil.writeValue(RESTAURANT2_ID)))
-                .andExpect(status().isCreated());
+                .andDo(print())
+                .andExpect(status().isOk());
 
         Vote returned = voteService.getVote(USER1_ID, LocalDate.now());
-
         Vote created = VoteTestData.getCreated();
         created.setRestaurant(RESTAURANT2);
         created.setUser(USER1);
@@ -58,10 +59,11 @@ public class VoteProfileRestControllerTest extends AbstractControllerTest {
         DateTimeUtil.setDeadlineVoteTime(LocalTime.now().plusMinutes(1));
         Vote expected = voteService.getVote(USER2_ID, LocalDate.now());
 
-        mockMvc.perform(put(REST_URL + "restaurants/{restaurantId}", RESTAURANT1_ID)
+        mockMvc.perform(post(REST_URL + "{restaurantId}", RESTAURANT1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(USER2))
                 .content(JsonUtil.writeValue(RESTAURANT1_ID)))
+                .andDo(print())
                 .andExpect(status().isOk());
 
         DateTimeUtil.setDeadlineVoteTime(DateTimeUtil.DEFAULT_VOTE_DEADLINE_TIME);
@@ -74,7 +76,7 @@ public class VoteProfileRestControllerTest extends AbstractControllerTest {
     public void testUpdateAfterDeadLine() throws Exception {
         DateTimeUtil.setDeadlineVoteTime(LocalTime.now().minusMinutes(1));
 
-        mockMvc.perform(put(REST_URL + "restaurants/{restaurantId}", RESTAURANT2_ID)
+        mockMvc.perform(put(REST_URL + "{restaurantId}", RESTAURANT2_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(USER1))
                 .content(JsonUtil.writeValue(RESTAURANT2_ID)))

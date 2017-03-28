@@ -9,7 +9,6 @@ import ua.restaurant.vote.model.Vote;
 import ua.restaurant.vote.repository.RestaurantRepository;
 import ua.restaurant.vote.repository.UserRepository;
 import ua.restaurant.vote.repository.VoteRepository;
-import ua.restaurant.vote.to.ResultTo;
 import ua.restaurant.vote.util.DateTimeUtil;
 import ua.restaurant.vote.util.exception.NotFoundException;
 
@@ -52,13 +51,9 @@ public class VoteServiceImpl implements VoteService {
 
     @Override
     @Transactional
-    public Vote update(int userId, int restaurantId) throws NotFoundException {
+    public Vote update(Vote vote, int restaurantId) throws NotFoundException {
         checkModificationAllowed();
-        Vote vote = voteRepository.getVote(userId, LocalDate.now());
-        if (vote == null) throw new NotFoundException("vote not found");
-        if (!vote.isNew() && get(vote.getId(), userId) != null){
-            vote.setRestaurant(restaurantRepository.getOne(restaurantId));
-        }
+        vote.setRestaurant(restaurantRepository.getOne(restaurantId));
         return checkNotFoundWithId(voteRepository.save(vote), vote.getId());
     }
 
@@ -67,11 +62,10 @@ public class VoteServiceImpl implements VoteService {
         checkNotFoundWithId(voteRepository.delete(id, userId) != 0, id);
     }
 
+    // used in tests only
     @Override
-    public Vote getVote(int userId, LocalDate date) throws NotFoundException {
-        Vote vote = voteRepository.getVote(userId, date);
-        Assert.notNull(vote, "vote must not be null");
-        return checkNotFoundWithId(vote, vote.getId());
+    public Vote getVote(int userId, LocalDate date) {
+        return voteRepository.getVote(userId, date);
     }
 
     @Override
