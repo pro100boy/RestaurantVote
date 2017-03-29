@@ -8,7 +8,6 @@ import ua.restaurant.vote.model.Dish;
 import ua.restaurant.vote.repository.DishRepository;
 import ua.restaurant.vote.repository.RestaurantRepository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static ua.restaurant.vote.util.ValidationUtil.checkNotFoundWithId;
@@ -26,15 +25,15 @@ public class DishServiceImpl implements DishService {
 
     @Override
     @Transactional
-    public Dish save(Dish menu, int restaurantId) {
-        if (!menu.isNew() && get(menu.getId(), restaurantId) == null) {
-            menu = null;
+    public Dish save(Dish dish, int restaurantId) {
+        if (!dish.isNew() && get(dish.getId(), restaurantId) == null) {
+            dish = null;
         }
         else {
-            menu.setRestaurant(restaurantRepository.getOne(restaurantId));
+            dish.setRestaurant(restaurantRepository.getOne(restaurantId));
         }
-        Assert.notNull(menu, "menu must not be null");
-        return dishRepository.save(menu);
+        Assert.notNull(dish, "dish must not be null");
+        return dishRepository.save(dish);
     }
 
     @Override
@@ -50,8 +49,8 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public Dish get(int id, int restaurantId) {
-        Dish menu = dishRepository.findOne(id);
-        return checkNotFoundWithId(menu != null && menu.getRestaurant().getId() == restaurantId ? menu : null, id);
+        Dish dish = dishRepository.findOne(id);
+        return checkNotFoundWithId(dish != null && dish.getRestaurant().getId() == restaurantId ? dish : null, id);
     }
 
     @Override

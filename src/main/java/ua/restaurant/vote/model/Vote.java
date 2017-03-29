@@ -1,6 +1,7 @@
 package ua.restaurant.vote.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,16 +23,18 @@ public class Vote extends BaseEntity{
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate date;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rest_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonBackReference(value="restaurant-votes")
-    private Restaurant restaurant;
+    protected Restaurant restaurant;
 
     public Vote() {
     }
@@ -75,7 +78,7 @@ public class Vote extends BaseEntity{
                 "id=" + getId() +
                 ", date=" + date +
                 //", user=" + user +
-                //", restaurant=" + restaurant +
+                //", restaurant=" + getRestaurant() +
                 '}';
     }
 }
