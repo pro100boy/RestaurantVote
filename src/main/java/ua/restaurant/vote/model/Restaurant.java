@@ -36,14 +36,14 @@ public class Restaurant extends NamedEntity {
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("date DESC")
-    @JsonManagedReference(value="restaurant-votes")
+    @JsonManagedReference(value = "restaurant-votes")
     private Set<Vote> votes;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("date DESC")
-    @JsonManagedReference(value="restaurant-dishes")
+    @JsonManagedReference(value = "restaurant-dishes")
     private Set<Dish> dishes;
 
     public Restaurant() {
@@ -78,6 +78,7 @@ public class Restaurant extends NamedEntity {
     public String toString() {
         return "Restaurant{" +
                 "id=" + getId() +
+                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 //", votes=" + votes +
                 //", menus=" + menus +

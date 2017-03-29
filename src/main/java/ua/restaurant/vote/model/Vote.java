@@ -34,7 +34,7 @@ public class Vote extends BaseEntity{
     @JoinColumn(name = "rest_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonBackReference(value="restaurant-votes")
-    protected Restaurant restaurant;
+    private Restaurant restaurant;
 
     public Vote() {
     }

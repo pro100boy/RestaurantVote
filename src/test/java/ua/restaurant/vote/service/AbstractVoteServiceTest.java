@@ -13,6 +13,8 @@ import ua.restaurant.vote.util.exception.NotFoundException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 import static ua.restaurant.vote.RestaurantTestData.*;
 import static ua.restaurant.vote.UserTestData.*;
@@ -55,7 +57,9 @@ public abstract class AbstractVoteServiceTest extends AbstractServiceTest {
 
     @Test
     public void testGetAll() throws Exception {
-        MATCHER.assertCollectionEquals(Arrays.asList(VOTE5, VOTE1), voteService.getAll(ADMIN_ID));
+        Collection<Vote> votes = voteService.getAll(ADMIN_ID);
+        MATCHER.assertCollectionEquals(Arrays.asList(VOTE5, VOTE1), votes);
+        RestaurantTestData.MATCHER.assertCollectionEquals(Arrays.asList(RESTAURANT1, RESTAURANT1), votes.stream().map(r->r.getRestaurant()).collect(Collectors.toList()));
     }
 
     @Test(expected = IllegalArgumentException.class)
