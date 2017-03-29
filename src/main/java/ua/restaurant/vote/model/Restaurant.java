@@ -36,7 +36,7 @@ public class Restaurant extends NamedEntity {
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("date DESC")
-    @JsonManagedReference(value = "restaurant-votes")
+    //@JsonManagedReference(value = "restaurant-votes")
     private Set<Vote> votes;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)

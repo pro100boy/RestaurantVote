@@ -1,6 +1,5 @@
 package ua.restaurant.vote.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -33,7 +32,7 @@ public class Vote extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rest_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonBackReference(value="restaurant-votes")
+    //@JsonBackReference(value="restaurant-votes")
     private Restaurant restaurant;
 
     public Vote() {

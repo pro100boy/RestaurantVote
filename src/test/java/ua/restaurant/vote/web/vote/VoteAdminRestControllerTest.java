@@ -4,19 +4,28 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
+import ua.restaurant.vote.RestaurantTestData;
+import ua.restaurant.vote.TestUtil;
+import ua.restaurant.vote.model.Vote;
 import ua.restaurant.vote.web.AbstractControllerTest;
+import ua.restaurant.vote.web.json.JsonUtil;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static ua.restaurant.vote.RestaurantTestData.RESTAURANT1;
+import static ua.restaurant.vote.RestaurantTestData.RESTAURANT2;
 import static ua.restaurant.vote.TestUtil.userHttpBasic;
-import static ua.restaurant.vote.UserTestData.*;
-import static ua.restaurant.vote.VoteTestData.MATCHER;
+import static ua.restaurant.vote.UserTestData.ADMIN;
+import static ua.restaurant.vote.UserTestData.USER1_ID;
 import static ua.restaurant.vote.VoteTestData.*;
 
 /**
@@ -39,12 +48,15 @@ public class VoteAdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetAll() throws Exception {
-        mockMvc.perform(get(REST_URL + "users/" + USER1_ID)
+        ResultActions action = mockMvc.perform(get(REST_URL + "users/" + USER1_ID)
                 .with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MATCHER.contentListMatcher(VOTE6, VOTE2));
+
+        Collection<Vote> votes = JsonUtil.readValues(TestUtil.getContent(action), Vote.class);
+        RestaurantTestData.MATCHER.assertCollectionEquals(Arrays.asList(RESTAURANT1, RESTAURANT2), votes.stream().map(r->r.getRestaurant()).collect(Collectors.toList()));
     }
 
     @Test
