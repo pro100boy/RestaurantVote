@@ -70,6 +70,14 @@ public class Restaurant extends NamedEntity {
         return votes;
     }
 
+    public void setVotes(Set<Vote> votes) {
+        this.votes = votes;
+    }
+
+    public void setDishes(Set<Dish> dishes) {
+        this.dishes = dishes;
+    }
+
     public Set<Dish> getDishes() {
         return dishes;
     }
