@@ -4,7 +4,7 @@
 ## Restaurant Vote System (application deployed in application context `vote`). ##
 REST API using Hibernate/Spring/SpringMVC **without frontend**. The database HSQL is used.
 
-Voting system for deciding where to have lunch.
+Voting system for deciding where to have lunch. Working sample: [http://35.163.18.123:8080/vote](http://35.163.18.123:8080/vote)
 
  * 2 types of users: admin and regular users
  * Admin can input a restaurant and it's lunch menu of the day (2-5 items usually, just a dish name and price)
