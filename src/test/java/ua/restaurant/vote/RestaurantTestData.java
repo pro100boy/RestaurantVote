@@ -1,11 +1,11 @@
 package ua.restaurant.vote;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ua.restaurant.vote.matcher.ModelMatcher;
 import ua.restaurant.vote.model.Restaurant;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import static ua.restaurant.vote.model.BaseEntity.START_SEQ;
 
