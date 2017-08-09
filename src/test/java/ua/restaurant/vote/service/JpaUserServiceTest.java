@@ -12,8 +12,6 @@ import javax.validation.ConstraintViolationException;
  * Created by Galushkin Pavel on 06.03.2017.
  */
 public class JpaUserServiceTest extends AbstractUserServiceTest {
-    @Autowired
-    private JpaUtil jpaUtil;
 
     @Test
     public void testValidation() throws Exception {
