@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = VoteProfileRestController.REST_URL)
 public class VoteProfileRestController extends AbstractVoteController {
-    static final String REST_URL = "/rest/profile/votes/restaurants";
+    public static final String REST_URL = "/rest/profile/votes/restaurants";
 
     @PostMapping(value = "/{restaurantId}")
     public void createOrUpdate(@PathVariable("restaurantId") int restaurantId) {

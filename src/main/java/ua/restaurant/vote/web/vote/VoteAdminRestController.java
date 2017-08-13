@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = VoteAdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class VoteAdminRestController extends AbstractVoteController {
-    static final String REST_URL = "/rest/admin/votes";
+    public static final String REST_URL = "/rest/admin/votes";
 
     /*
      * admin can remove the vote at any time

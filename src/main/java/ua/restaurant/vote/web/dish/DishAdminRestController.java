@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = DishAdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class DishAdminRestController extends AbstractDishController {
-    static final String REST_URL = "/rest/admin/restaurants/{restaurantId}/dishes";
+    public static final String REST_URL = "/rest/admin/restaurants/{restaurantId}/dishes";
 
     // returns concrete menu of the restaurant
     @Override
