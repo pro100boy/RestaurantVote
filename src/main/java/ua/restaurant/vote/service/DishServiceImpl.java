@@ -18,10 +18,10 @@ import static ua.restaurant.vote.util.ValidationUtil.checkNotFoundWithId;
 @Service("menuService")
 public class DishServiceImpl implements DishService {
     @Autowired
-    DishRepository dishRepository;
+    private DishRepository dishRepository;
 
     @Autowired
-    RestaurantRepository restaurantRepository;
+    private RestaurantRepository restaurantRepository;
 
     @Override
     @Transactional

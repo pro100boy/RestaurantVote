@@ -17,7 +17,7 @@ public class AbstractVoteController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    VoteService service;
+    private VoteService service;
 
     public List<Vote> getAll() {
         int userId = AuthorizedUser.id();
