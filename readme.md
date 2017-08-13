@@ -1,4 +1,3 @@
-[![Dependency Status](https://dependencyci.com/github/pro100boy/RestaurantVote/badge)](https://dependencyci.com/github/pro100boy/RestaurantVote)
 [![Build Status](https://travis-ci.org/pro100boy/RestaurantVote.svg?branch=master)](https://travis-ci.org/pro100boy/RestaurantVote)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/da3ee8bd41da4fa1946ddac63a50088b)](https://www.codacy.com/app/gpg/RestaurantVote?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pro100boy/RestaurantVote&amp;utm_campaign=Badge_Grade)
 ## Restaurant Vote System (application deployed in application context `vote`). ##
